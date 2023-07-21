@@ -4,6 +4,7 @@ import "hardhat-deploy";
 import "hardhat-deploy-ethers";
 import "solidity-coverage";
 import dotenv from "dotenv";
+import "./tasks/ima_registration";
 import "./tasks/launch";
 import "./tasks/launch_order_public_mint";
 import "./tasks/launch_public_mint";
@@ -11,7 +12,6 @@ import "./tasks/launch_public_mint";
 dotenv.config();
 
 const PRIVATE_KEY: string | undefined = process.env.PRIVATE_KEY;
-
 if (!PRIVATE_KEY) {
     throw new Error("Private Key Not Set in .env");
 }

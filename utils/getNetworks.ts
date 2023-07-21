@@ -9,7 +9,7 @@ export const getNetworks = (configurationOption: ConfigurationOption) : [string,
 }
 
 const mainnetRPCUrl = (name: string) => `https://mainnet.skalenodes.com/v1/${name}`;
-const testnetRPCUrl = (name: string) => `https://staging-v3.skalenodes.com/v1/staging-${name}`;
+const testnetRPCUrl = (name: string) => `https://staging-v3.skalenodes.com/v1/${name}`;
 
 export const getRPCUrl = (networkName: NetworkName) : string => {
     const chainName: string = getOfficialChainName(networkName);
@@ -24,8 +24,8 @@ export const getRPCUrl = (networkName: NetworkName) : string => {
 export const getOfficialChainName = (networkName: string) : string => {
     if (networkName === "calypso") return "honorable-steel-rasalhague";
     else if (networkName === "nebula") return "green-giddy-denebola";
-    else if (networkName === "calypso-testnet") return "utter-unripe-menkar";
-    else if (networkName === "nebula-testnet") return "faint-slimy-achird";
-    else if (networkName === "chaos-testnet") return "fast-active-bellatrix";
+    else if (networkName === "calypso-testnet") return "staging-utter-unripe-menkar";
+    else if (networkName === "nebula-testnet") return "staging-faint-slimy-achird";
+    else if (networkName === "chaos-testnet") return "staging-fast-active-bellatrix";
     else throw new Error("Invalid Network Name");
 }

@@ -2,6 +2,7 @@ import { task } from "hardhat/config";
 import { NetworkName, getNetworks, getOfficialChainName, getRPCUrl } from "../utils/getNetworks";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
+import { registerContractSchain } from "../utils/ima";
 
 type Location = "mainnet" | "testnet" | "testnet-chaos";
 
@@ -30,14 +31,15 @@ task("launch-public-mint", "Launch Rirrom Protocol Contracts")
 
         // 5. Deploy Calypso Contract
         console.log("Destination: ", destination, getOfficialChainName(destination));
-        const calypsoDeployment = await calypsoFactory.deploy(name, symbol, "staging-" + getOfficialChainName(destination));
+        const calypsoDeployment = await calypsoFactory.deploy(name, symbol, getOfficialChainName(destination));
         await calypsoDeployment.waitForDeployment();
 
         // 6. Deploy Target Contract
-        const targetDeployment = await targetFactory.deploy(name, symbol, "staging-" + getOfficialChainName(origin), await calypsoDeployment.getAddress())
+        const targetDeployment = await targetFactory.deploy(name, symbol, getOfficialChainName(origin), await calypsoDeployment.getAddress())
         await targetDeployment.waitForDeployment();
         
-        await calypsoDeployment.setRirromAddress(await targetDeployment.getAddress());
+        const setAddress = await calypsoDeployment.setRirromAddress(await targetDeployment.getAddress());
+        await setAddress.wait(1);
 
         const timestamp = new Date().getTime().toString();
 
@@ -60,4 +62,6 @@ task("launch-public-mint", "Launch Rirrom Protocol Contracts")
             abi: targetFactory.interface.formatJson(),
             deployer: signer.address
         }), "utf-8");
+
+        await registerContractSchain(await calypsoDeployment.getAddress(), getOfficialChainName(destination), signer.connect(calypso));
     });
