@@ -1,8 +1,8 @@
-# Rirrom Protocol
+# Rorrim Protocol
 
-[![npm (tag)](https://img.shields.io/npm/v/@dirtroad/rirrom)](https://www.npmjs.com/package/@dirtroad/rirrom)
+[![npm (tag)](https://img.shields.io/npm/v/@dirtroad/rorrim)](https://www.npmjs.com/package/@dirtroad/rorrim)
 
-Rirrom Protocol is a SKALE specific smart contract protocol designed to help manage cross-chain NFT operations.
+Rorrim Protocol is a SKALE specific smart contract protocol designed to help manage cross-chain NFT operations.
 This software is currently a proof-of-concept to help simplify multi-chain interactions on SKALE.
 
 ## Installation
@@ -10,17 +10,17 @@ This software is currently a proof-of-concept to help simplify multi-chain inter
 To add to your project, run:
 
 ```shell
-npm add @dirtroad/rirrom
+npm add @dirtroad/rorrim
 ```
 
 ## Building
 
-### Rirrom Contract
+### rorrim Contract
 
-To add the rirrom (target) contract to your project, import the following in your Solidity contract:
+To add the rorrim (target) contract to your project, import the following in your Solidity contract:
 
 ```solidity
-import "@dirtroad/rirrom/contracts/rirrorm/RirromNFT.sol";
+import "@dirtroad/rorrim/contracts/rirrorm/rorrimNFT.sol";
 ```
 
 ### Calypso Contract
@@ -28,10 +28,10 @@ import "@dirtroad/rirrom/contracts/rirrorm/RirromNFT.sol";
 To add the calypso (target) contract to your project, import the following in your Solidity contract:
 
 ```solidity
-import "@dirtroad/rirrom/contracts/rirrorm/CalypsoNFT.sol";
+import "@dirtroad/rorrim/contracts/rirrorm/CalypsoNFT.sol";
 ```
 
-### Extending the Rirrom Protocol
+### Extending the rorrim Protocol
 
 To extend the protocol to work on other SKALE Chains you can:
 
@@ -60,4 +60,4 @@ npx hardhat launch --location testnet-chaos --name <your-nft-contract-name> --sy
 
 ### Security and Liability
 
-The Rirrom Protocol contracts and code is WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+The rorrim Protocol contracts and code is WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.

@@ -7,14 +7,14 @@ import "@skalenetwork/ima-interfaces/schain/IMessageProxyForSchain.sol";
 import {MintNotice, TransferNotice} from "./Types.sol";
 
 error MessageMustComeFromCalypso();
-error RirromAddressNotSet();
+error RorrimAddressNotSet();
 
 contract CalypsoNFT is ERC721, Ownable {
     bytes32 public destinationChainHash;
     IMessageProxyForSchain public proxy;
-    address public rirromNFTAddress;
+    address public rorrimNFTAddress;
 
-    event SetRirromAddress(address indexed addr);
+    event SetRorrimAddress(address indexed addr);
 
     constructor(
         string memory _name,
@@ -33,13 +33,13 @@ contract CalypsoNFT is ERC721, Ownable {
         _safeMint(to, tokenId);
     }    
 
-    function setRirromAddress(address _rirromNFTAddress) external onlyOwner {
-        rirromNFTAddress = _rirromNFTAddress;
-        emit SetRirromAddress(_rirromNFTAddress);
+    function setRorrimAddress(address _rorrimNFTAddress) external onlyOwner {
+        rorrimNFTAddress = _rorrimNFTAddress;
+        emit SetRorrimAddress(_rorrimNFTAddress);
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize) internal virtual override {
-        if (rirromNFTAddress == address(0)) revert RirromAddressNotSet();
+        if (rorrimNFTAddress == address(0)) revert RorrimAddressNotSet();
         super._beforeTokenTransfer(from, to, firstTokenId, batchSize);
     }
 
@@ -53,7 +53,7 @@ contract CalypsoNFT is ERC721, Ownable {
         if (from == address(0)) {
             proxy.postOutgoingMessage(
                 destinationChainHash,
-                rirromNFTAddress,
+                rorrimNFTAddress,
                 abi.encode(
                     "mint",
                     abi.encode(MintNotice({to: to, tokenId: firstTokenId}))
@@ -62,7 +62,7 @@ contract CalypsoNFT is ERC721, Ownable {
         } else {
             proxy.postOutgoingMessage(
                 destinationChainHash,
-                rirromNFTAddress,
+                rorrimNFTAddress,
                 abi.encode(
                     "transfer",
                     abi.encode(TransferNotice({to: to, tokenId: firstTokenId}))

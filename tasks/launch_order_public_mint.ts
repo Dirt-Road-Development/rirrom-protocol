@@ -6,7 +6,7 @@ import { registerContractSchain } from "../utils/ima";
 
 type Location = "mainnet" | "testnet" | "testnet-chaos";
 
-task("launch-ordered-public-mint", "Launch Rirrom Protocol Contracts")
+task("launch-ordered-public-mint", "Launch Rorrim Protocol Contracts")
     .addParam("location", "Location of Deployment: [\"mainnet\", \"testnet\", \"testnet-chaos\"]", "testnet-chaos")
     .addParam("name", "NFT Contract Name")
     .addParam("symbol", "NFT Contract Symbol")
@@ -27,7 +27,7 @@ task("launch-ordered-public-mint", "Launch Rirrom Protocol Contracts")
 
         // 4. Build Contracts
         const calypsoFactory = await hre.ethers.getContractFactory("OrderedPublicMint", signer.connect(calypso));
-        const targetFactory = await hre.ethers.getContractFactory("RirromNFT", signer.connect(target));
+        const targetFactory = await hre.ethers.getContractFactory("RorrimNFT", signer.connect(target));
 
         // 5. Deploy Calypso Contract
         const calypsoDeployment = await calypsoFactory.deploy(name, symbol, getOfficialChainName(destination));
@@ -37,7 +37,7 @@ task("launch-ordered-public-mint", "Launch Rirrom Protocol Contracts")
         const targetDeployment = await targetFactory.deploy(name, symbol, getOfficialChainName(origin), await calypsoDeployment.getAddress())
         await targetDeployment.waitForDeployment();
         
-        const setAddress = await calypsoDeployment.setRirromAddress(await targetDeployment.getAddress());
+        const setAddress = await calypsoDeployment.setRorrimAddress(await targetDeployment.getAddress());
         await setAddress.wait(1);
 
         const timestamp = new Date().getTime().toString();

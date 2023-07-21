@@ -9,7 +9,7 @@ error InvalidAction(string action);
 error InvalidSender();
 error MessageMustComeFromCalypso();
 
-contract RirromNFT is ERC721 {
+contract RorrimNFT is ERC721 {
 
     bytes32 public calypsoChainHash;
     address public calypsoNFT;
