@@ -39,36 +39,25 @@ task("launch", "Launch Rirrom Protocol Contracts")
         
         await calypsoDeployment.setRirromAddress(await targetDeployment.getAddress());
 
-        const randomBytes = hre.ethers.randomBytes(16);
-        const uuid = hre.ethers.uuidV4(randomBytes);
+        const timestamp = new Date().getTime().toString();
 
         // 7. Create Folder
-        await mkdir(path.resolve(__dirname, "../deployments/", uuid));
+        await mkdir(path.resolve(__dirname, "../deployments/", timestamp));
 
-        // 7. Store Deployment to Calypso
-        const calypsoPath = path.resolve(__dirname, "../deployments/", `${uuid}/${origin}.json`);
+        // 8. Store Deployment to Calypso
+        const calypsoPath = path.resolve(__dirname, "../deployments/", `${timestamp}/${origin}.json`);
         await writeFile(calypsoPath, JSON.stringify({
             address: await calypsoDeployment.getAddress(),
             abi: calypsoFactory.interface.formatJson(),
             owner: signer.address,
             deployer: signer.address
         }), "utf-8");
-        // await hre.deployments.save(`/deployments/${location}/${origin}`, {
-        //     ...calypsoDeployment,
-        //     abi: calypsoFactory.interface.formatJson() as any,
-        //     address: await calypsoDeployment.getAddress()
-        // });
 
-        // 8. Store Deployment to Destination
-        const targetPath = path.resolve(__dirname, "../deployments/", `${uuid}/${destination}.json`);
+        // 9. Store Deployment to Destination
+        const targetPath = path.resolve(__dirname, "../deployments/", `${timestamp}/${destination}.json`);
         await writeFile(targetPath, JSON.stringify({
             address: await targetDeployment.getAddress(),
             abi: targetFactory.interface.formatJson(),
             deployer: signer.address
         }), "utf-8");
-        // await hre.deployments.save(`/deployments/${location}/${destination}`, {
-        //     ...targetDeployment,
-        //     abi: targetFactory.interface.formatJson() as any,
-        //     address: await targetDeployment.getAddress()
-        // });
     });
