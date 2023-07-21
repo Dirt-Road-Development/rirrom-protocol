@@ -5,6 +5,8 @@ import "hardhat-deploy-ethers";
 import "solidity-coverage";
 import dotenv from "dotenv";
 import "./tasks/launch";
+import "./tasks/launch_order_public_mint";
+import "./tasks/launch_public_mint";
 
 dotenv.config();
 

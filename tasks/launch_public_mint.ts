@@ -5,7 +5,7 @@ import path from "path";
 
 type Location = "mainnet" | "testnet" | "testnet-chaos";
 
-task("launch", "Launch Rirrom Protocol Contracts")
+task("launch-public-mint", "Launch Rirrom Protocol Contracts")
     .addParam("location", "Location of Deployment: [\"mainnet\", \"testnet\", \"testnet-chaos\"]", "testnet-chaos")
     .addParam("name", "NFT Contract Name")
     .addParam("symbol", "NFT Contract Symbol")
@@ -25,10 +25,11 @@ task("launch", "Launch Rirrom Protocol Contracts")
         console.log("Dest: ", getRPCUrl(destination as NetworkName));
 
         // 4. Build Contracts
-        const calypsoFactory = await hre.ethers.getContractFactory("CalypsoNFT", signer.connect(calypso));
+        const calypsoFactory = await hre.ethers.getContractFactory("PublicMint", signer.connect(calypso));
         const targetFactory = await hre.ethers.getContractFactory("RirromNFT", signer.connect(target));
 
         // 5. Deploy Calypso Contract
+        console.log("Destination: ", destination, getOfficialChainName(destination));
         const calypsoDeployment = await calypsoFactory.deploy(name, symbol, "staging-" + getOfficialChainName(destination));
         await calypsoDeployment.waitForDeployment();
 
